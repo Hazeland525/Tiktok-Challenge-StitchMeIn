@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import './components.css'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
 export default function VideoCard({ video, index, isActive, paused, stitchOpen, onStitchIn }) {
   const videoRef = useRef(null)

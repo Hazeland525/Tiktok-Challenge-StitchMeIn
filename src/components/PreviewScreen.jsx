@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 const CROSSFADE_DELAY_MS = 100
 
 export default function PreviewScreen({ video, generatedResult, clipRange, userPrompt, onClose, onTryAgain, onPost }) {

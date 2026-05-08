@@ -6,7 +6,7 @@ import CharacterCapture from './CharacterCapture'
 import GenerationLoader from './GenerationLoader'
 import PreviewScreen    from './PreviewScreen'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
 // Icons used in both scatter (remix) and orbit (loading) layouts
 const REMIX_ICONS = [
