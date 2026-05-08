@@ -72,7 +72,7 @@ export default function GenerationLoader({
           userPrompt,
         })
         if (isDevMode) await stageDelay(stageDurationsMs[0])
-        const imageDataUrl = await imagePromise
+        const { imageDataUrl, usedMockMode: imageMock } = await imagePromise
         if (cancelled) return
         setScenePreview(imageDataUrl)
         onScenePreview?.(imageDataUrl)
@@ -86,6 +86,7 @@ export default function GenerationLoader({
         setStage(2)
         console.log('%c🤖 Calling ' + activeEngine + ' — animating the clip', 'color:#00EEE0;font-weight:600')
         let videoUri = null
+        let usedMockMode = imageMock
         try {
           const videoPromise = generateVideo({
             generatedImageDataUrl: imageDataUrl,
@@ -93,7 +94,9 @@ export default function GenerationLoader({
             userPrompt,
           })
           if (isDevMode) await stageDelay(stageDurationsMs[2])
-          videoUri = await videoPromise
+          const result = await videoPromise
+          videoUri     = result.videoUri
+          usedMockMode = usedMockMode || result.usedMockMode
         } catch (vidErr) {
           console.warn(`${activeEngine} generation failed, using static image:`, vidErr.message)
         }
@@ -102,7 +105,7 @@ export default function GenerationLoader({
 
         // ── Done ────────────────────────────────────────────────────────────
         console.log('Generation complete' + (videoUri ? ' — video ready' : ' — using static image'))
-        onComplete({ imageDataUrl, videoUri, engineUsed: activeEngine })
+        onComplete({ imageDataUrl, videoUri, engineUsed: activeEngine, usedMockMode })
       } catch (err) {
         if (!cancelled) setError(err.message ?? 'Generation failed')
       }

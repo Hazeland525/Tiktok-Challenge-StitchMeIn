@@ -364,8 +364,9 @@ export default function StitchFlow({ videoEl, video, pausedTime = 0, onClose, on
             console.log('%c👤 Posted! Caption: "' + caption + '"', 'color:#FFBC28;font-weight:600')
             onPost?.(imageUrl, caption, {
               ...clipContext,
-              generatedVideoUrl: generatedResult?.videoUri   ?? null,
-              engineUsed:        generatedResult?.engineUsed ?? null,
+              generatedVideoUrl: generatedResult?.videoUri      ?? null,
+              engineUsed:        generatedResult?.engineUsed    ?? null,
+              usedMockMode:      generatedResult?.usedMockMode  ?? false,
             })
           }}
         />

@@ -1,13 +1,15 @@
 import { useState, useCallback } from 'react'
-import Feed        from './components/Feed'
-import StitchFlow  from './components/StitchFlow'
+import Feed          from './components/Feed'
+import StitchFlow    from './components/StitchFlow'
+import PasscodeModal from './components/PasscodeModal'
 import './components/components.css'
 
 export default function App() {
   const [cursor,          setCursor]          = useState({ x: -100, y: -100 })
   const [pressed,         setPressed]         = useState(false)
-  const [stitchTarget,    setStitchTarget]    = useState(null) // { videoEl, video, index }
+  const [stitchTarget,    setStitchTarget]    = useState(null)
   const [generatedPosts,  setGeneratedPosts]  = useState([])
+  const [mockBanner,      setMockBanner]      = useState(false)
 
   const onMouseMove = useCallback((e) => setCursor({ x: e.clientX, y: e.clientY }), [])
   const onMouseDown = useCallback(() => setPressed(true),  [])
@@ -31,7 +33,6 @@ export default function App() {
       isGenerated:    true,
       isStitched:     Boolean(sourceVideoUrl && generatedVideoUrl),
       generatedSrc:   imageUrl,
-      // Composite stitched object for feed playback
       sourceVideoUrl,
       generatedVideoUrl,
       videoSrc:       sourceVideoUrl,
@@ -45,6 +46,7 @@ export default function App() {
       likes:          '0',
       comments:       '0',
     }
+    if (clipContext.usedMockMode) setMockBanner(true)
     setGeneratedPosts((prev) => [newPost, ...prev])
     setStitchTarget(null)
   }
@@ -75,6 +77,15 @@ export default function App() {
         />
       )}
 
+      <PasscodeModal />
+
+      {mockBanner && (
+        <div style={bannerStyle}>
+          <span>Demo limit reached — showing placeholder results</span>
+          <button onClick={() => setMockBanner(false)} style={bannerCloseStyle}>✕</button>
+        </div>
+      )}
+
       {/* Custom cursor */}
       <div
         className="custom-cursor"
@@ -86,4 +97,35 @@ export default function App() {
       />
     </div>
   )
+}
+
+const bannerStyle = {
+  position:       'fixed',
+  top:            0,
+  left:           '50%',
+  transform:      'translateX(-50%)',
+  zIndex:         9000,
+  width:          '100%',
+  maxWidth:       390,
+  display:        'flex',
+  alignItems:     'center',
+  justifyContent: 'space-between',
+  gap:            8,
+  padding:        '10px 16px',
+  background:     '#1a1a1a',
+  borderBottom:   '1px solid #333',
+  color:          '#fff',
+  fontSize:       13,
+  fontFamily:     'system-ui, sans-serif',
+  boxSizing:      'border-box',
+}
+
+const bannerCloseStyle = {
+  background: 'none',
+  border:     'none',
+  color:      '#888',
+  fontSize:   16,
+  cursor:     'pointer',
+  flexShrink: 0,
+  padding:    0,
 }
