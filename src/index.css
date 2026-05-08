@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.feed-container::-webkit-scrollbar {
+  display: none;
+}
+.feed-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+/* This styles the browser window itself */
+body {
+  background-color: #1a1a1a; /* A deep gunmetal gray */
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* This ensures your phone-sized viewport stands out */
+.app-container {
+  width: 390px; /* Standard iPhone width */
+  height: 844px; /* Standard iPhone height */
+  background-color: #000000; /* Keep the app black */
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5); /* Add a soft shadow to lift it */
+  position: relative;
+  overflow: hidden;
+  border: 8px solid #333; /* Optional: A "bezel" look */
+  border-radius: 40px;    /* Optional: Rounded corners like a phone */
+}

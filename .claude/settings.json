@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.segmind.com)",
+      "Bash(ls /Users/hazel2.0/Desktop/Career/Tiktok/StitchMeIn/*.js)"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+# Environment variables — never commit API keys
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# Vite build output
+dist/
+dist-ssr/
+
+# Generated AI assets (can be large, regenerated at runtime)
+public/generated/
+
+# Vite cache
+.vite/
+*.local
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
