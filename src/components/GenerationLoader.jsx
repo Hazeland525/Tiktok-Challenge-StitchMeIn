@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { generateEndFrame } from '../api/generateEndFrame'
 import { generateVideo    } from '../api/generateVideo'
+import { apiFetch         } from '../api/apiFetch'
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
@@ -50,7 +51,7 @@ export default function GenerationLoader({
         let isDevMode        = false
         let stageDurationsMs = [0, 0, 0]
         try {
-          const cfg  = await fetch(`${BACKEND_URL}/api/engine-config`)
+          const cfg  = await apiFetch('/api/engine-config')
           const json = await cfg.json()
           activeEngine     = json.engine            ?? activeEngine
           isDevMode        = json.devMode           ?? false

@@ -5,8 +5,7 @@ import ClipSelector     from './ClipSelector'
 import CharacterCapture from './CharacterCapture'
 import GenerationLoader from './GenerationLoader'
 import PreviewScreen    from './PreviewScreen'
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
+import { apiFetch }     from '../api/apiFetch'
 
 // Icons used in both scatter (remix) and orbit (loading) layouts
 const REMIX_ICONS = [
@@ -217,7 +216,7 @@ export default function StitchFlow({ videoEl, video, pausedTime = 0, onClose, on
     console.log('%c🤖 Calling /api/generate-prompts — generating idea chips from scene', 'color:#00EEE0;font-weight:600')
     try {
       const base64 = sceneFrame ? sceneFrame.replace(/^data:[^;]+;base64,/, '') : null
-      const res = await fetch(`${BACKEND_URL}/api/generate-prompts`, {
+      const res = await apiFetch('/api/generate-prompts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sceneImageBase64: base64 }),

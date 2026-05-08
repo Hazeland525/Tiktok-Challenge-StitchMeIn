@@ -1,8 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useAnimation } from 'framer-motion'
+import { apiProxyUrl } from '../api/apiFetch'
 import './components.css'
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 
 export default function VideoCard({ video, index, isActive, paused, stitchOpen, onStitchIn }) {
   const videoRef = useRef(null)
@@ -18,9 +17,7 @@ export default function VideoCard({ video, index, isActive, paused, stitchOpen, 
 
   const sourceVideoUrl = video.sourceVideoUrl ?? video.videoSrc ?? null
   const generatedVideoUrl = video.generatedVideoUrl ?? null
-  const proxiedGeneratedVideoUrl = generatedVideoUrl
-    ? `${BACKEND_URL}/api/video-proxy?uri=${encodeURIComponent(generatedVideoUrl)}`
-    : null
+  const proxiedGeneratedVideoUrl = apiProxyUrl(generatedVideoUrl)
 
   // Regular video playback
   useEffect(() => {

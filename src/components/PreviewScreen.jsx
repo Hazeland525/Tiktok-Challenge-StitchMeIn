@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
+import { apiProxyUrl } from '../api/apiFetch'
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || ''
 const CROSSFADE_DELAY_MS = 100
 
 export default function PreviewScreen({ video, generatedResult, clipRange, userPrompt, onClose, onTryAgain, onPost }) {
@@ -16,9 +16,7 @@ export default function PreviewScreen({ video, generatedResult, clipRange, userP
   const rawVideoUri  = generatedResult?.videoUri ?? null
   // Pass the raw URI to the proxy — the server applies the API key server-side
   // via both query param and x-goog-api-key header (the reliable path)
-  const proxiedVideoUri = rawVideoUri
-    ? `${BACKEND_URL}/api/video-proxy?uri=${encodeURIComponent(rawVideoUri)}`
-    : null
+  const proxiedVideoUri = apiProxyUrl(rawVideoUri)
 
   useEffect(() => {
     setShowGenerated(false)
